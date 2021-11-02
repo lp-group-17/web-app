@@ -12,7 +12,7 @@ function CardUI()
     {
         event.preventDefault();
          alert('addCard() ' + card.value);
-    };
+    }; // this is a random comment
 
     const searchCard = async event => 
     {
