@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 function CardUI()
 {
-<<<<<<< HEAD
   var _ud = localStorage.getItem('user_data');
   var ud = JSON.parse(_ud);
   var userId = ud.id;
@@ -62,25 +61,6 @@ function CardUI()
           setResults(e.toString());
       }
   };
-=======
-    var card = '';
-    var search = '';
-    const [message,setMessage] = useState('');
-    const [searchResults,setResults] = useState('');
-    const [cardList,setCardList] = useState('');
-
-    const addCard = async event =>
-    {
-        event.preventDefault();
-         alert('addCard() ' + card.value);
-    }; // this is a random comment
-
-    const searchCard = async event =>
-    {
-        event.preventDefault();
-        alert('searchCard() ' + search.value);
-    };
->>>>>>> 2bbd73a8802bd5018f655e19f4a102a07b656361
     return(
       <div id="cardUIDiv">
         <br />
