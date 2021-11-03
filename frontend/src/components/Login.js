@@ -1,11 +1,16 @@
+<<<<<<< HEAD
 import React from 'react';
 import React, { useState } from 'react';
 
+=======
+import React, { useState } from 'react';
+>>>>>>> 2bbd73a8802bd5018f655e19f4a102a07b656361
 function Login()
 {
   var loginName;
   var loginPassword;
   const [message,setMessage] = useState('');
+<<<<<<< HEAD
   const doLogin = async event => 
     {
         event.preventDefault();
@@ -33,13 +38,20 @@ function Login()
             return;
         }    
     };
+=======
+  const doLogin = async event =>
+  {
+      event.preventDefault();
+      alert('doIt() ' + loginName.value + ' ' + loginPassword.value );
+  };
+>>>>>>> 2bbd73a8802bd5018f655e19f4a102a07b656361
     return(
       <div id="loginDiv">
         <form onSubmit={doLogin}>
         <span id="inner-title">PLEASE LOG IN</span><br />
-        <input type="text" id="loginName" placeholder="Username" 
+        <input type="text" id="loginName" placeholder="Username"
           ref={(c) => loginName = c} />
-        <input type="password" id="loginPassword" placeholder="Password" 
+        <input type="password" id="loginPassword" placeholder="Password"
           ref={(c) => loginPassword = c} />
         <input type="submit" id="loginButton" class="buttons" value = "Do It"
           onClick={doLogin} />
