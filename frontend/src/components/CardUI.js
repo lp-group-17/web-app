@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 
 function CardUI()
 {
+  var card = '';
+  var search = '';
+  const [message,setMessage] = useState('');
+  const [searchResults,setResults] = useState('');
+  const [cardList,setCardList] = useState('');
   var _ud = localStorage.getItem('user_data');
   var ud = JSON.parse(_ud);
   var userId = ud.id;
