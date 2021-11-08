@@ -5,7 +5,8 @@ module.exports = (app) => {
   app.post('/api/account/signup', (req, res, next) => {
     const { body } = req;
     const {
-      name,
+      firstname,
+      lastname,
       password,
       verification
     } = body;
@@ -13,7 +14,13 @@ module.exports = (app) => {
       email
     } = body;
     
-    if (!name) {
+    if (!firstname) {
+      return res.send({
+        success: false,
+        message: 'Error: Name field cannot be empty.'
+      });
+    }
+    if (!lastname) {
       return res.send({
         success: false,
         message: 'Error: Name field cannot be empty.'
@@ -52,7 +59,8 @@ module.exports = (app) => {
       // create new user
       const newUser = new User();
       
-      newUser.name = name;
+      newUser.firstname = firstname;
+      newUser.lastname = lastname;
       newUser.email = email;
       newUser.password = newUser.generateHash(password);
       newUser.save((err, user) => {
