@@ -32,7 +32,8 @@ class App extends Component {
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h2>React Form Validation Demo</h2>
-          <Button variant="primary">Primary</Button>{' '}
+          <Button variant="primary">Primary</Button>
+          <Button variant="primary">Primary</Button>
         </div>
       </div>
     );
