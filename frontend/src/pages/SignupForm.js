@@ -1,71 +1,118 @@
 import React, { Form } from 'react';
-import { FormGroup } from 'react-bootstrap';
-import { render } from 'react-dom';
 import { Button } from 'bootstrap';
 import { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css'
 
-function SignupForm() {
-  const [validated, setValidated] = useState(false);
+// function SignupForm() {
+//   const [validated, setValidated] = useState(false);
 
-  const handleSubmit = (event) => {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-    event.preventDefault();
-    event.stopPropogation();
+//   const handleSubmit = (event) => {
+//     const form = event.currentTarget;
+//     if (form.checkValidity() === false) {
+//     event.preventDefault();
+//     event.stopPropogation();
+//     }
+
+//     setValidated(true);
+//   };
+
+const SignupForm = () => {
+    
+  const [ form, setForm ] = useState({})
+  const [ errors, setErrors ] = useState({})
+
+  const setField = (field, value) => {
+    setForm({
+      ...form,
+      [field]: value
+    })
+
+    if ( !!errors[field] ) setErrors({
+      ...errors,
+      [field]: null
+    })
+  }
+
+  const findFormErrors = () => {
+    const {firstName, lastName, username, email, password, confirmPassword} = form
+    const newErrors = {}
+
+    if ( !firstName || firstName === "" ) newErrors.firstName = 'cannot be blank'
+
+    if ( !lastName || lastName === "" ) newErrors.lastName = 'cannot be blank'
+
+    if ( !username || username === "" ) newErrors.username = 'cannot be blank'
+
+    if ( !email || email === "" ) newErrors.email = 'cannot be blank'
+    else if ( /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/.test(email) ) newErrors.email = 'must be a valid email'
+    
+    if ( !password || password === "" ) newErrors.password = 'please enter a password'
+    else if ( password.length < 8) newErrors.password = 'password must be at least 8 characters long'
+    else if ( /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.[\W]).{8,}$/.test(password) ) newErrors.password = ' password must contain at least 1 uppcase letter, lowercase letter, number, and special character'
+
+    if ( !password || password === "" ) newErrors.confirmPassword = 'please confirm your password'
+    else if ( password !== confirmPassword ) newErrors.confirmPassword = 'passwords must match'
+
+    return newErrors
+  }
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    const newErrors = findFormErrors()
+    if ( Object.keys(newErrors).length > 0 ) {
+      setErrors(newErrors)
+    } else {
+      alert('you did it')
     }
 
-    setValidated(true);
-  };
-  
-  render()
-  {
-    return (
-      <Form noValidate validated={validated} onSubmit={handleSubmit}>
-      <Form.Group classname="mb-3" controlId="formFirstName">
-          <Form.Label>First Name</Form.Label>
-          <Form.Control required type="text" placeholder="Enter First Name" />
-        </Form.Group>
-
-        <Form.Group classname="mb-3" controlId="formLastName">
-          <Form.Label>Last Name</Form.Label>
-          <Form.Control required type="text" placeholder="Enter Last Name" />
-        </Form.Group>
-
-        <Form.Group classname="mb-3" controlId="formUsername">
-          <Form.Label>Username</Form.Label>
-          <Form.Control required type="text" placeholder="Enter Username" />
-        </Form.Group>
-
-        <Form.Group classname="mb-3" controlId="formEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control required type="email" placeholder="Enter email" />
-          <Form.Control.Feedback type="invalid">
-            Please provid a valid email
-          </Form.Control.Feedback>
-        </Form.Group>
-
-        <FormGroup className="mb-3" controlId="formPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control required type="password" placeholder="Pasword" />
-          <Form.Control.Feedback type="invalid">
-            Password must be at least 8 characters and contain at least one number and symbol
-          </Form.Control.Feedback>
-        </FormGroup>
-
-        <FormGroup className="mb-3" controlId="formConfirmPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control required type="password" placeholder="Confirm Pasword" />
-          <Form.Control.Feedback type="invalid">
-            Passwords must match
-          </Form.Control.Feedback>
-        </FormGroup>
-
-        <Button variant="primary" type="submit">
-          Sign up
-        </Button>
-      </Form>
-    );
   }
+
+  return (
+    <Form>
+      <Form.Group className="mb-3" controlId="formFirstName">
+        <Form.Label>First Name</Form.Label>
+        <Form.Control required type="text" placeholder="Enter First Name" onChange={ e => setField('name', e.target.value) } isInvalid={ !!errors.name }/>
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="formLastName">
+        <Form.Label>Last Name</Form.Label>
+        <Form.Control required type="text" placeholder="Enter Last Name" onChange={ e => setField('name', e.target.value) } isInvalid={ !!errors.name }/>
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="formUsername">
+        <Form.Label>Username</Form.Label>
+        <Form.Control required type="text" placeholder="Enter Username" onChange={ e => setField('name', e.target.value) } isInvalid={ !!errors.name }/>
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="formEmail">
+        <Form.Label>Email address</Form.Label>
+        <Form.Control required type="email" placeholder="Enter email" onChange={ e => setField('name', e.target.value) } isInvalid={ !!errors.name }/>
+        <Form.Control.Feedback type="invalid">
+          Please provid a valid email
+        </Form.Control.Feedback>
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="formPassword">
+        <Form.Label>Password</Form.Label>
+        <Form.Control required type="password" placeholder="Pasword" onChange={ e => setField('name', e.target.value) } isInvalid={ !!errors.name }/>
+        <Form.Control.Feedback type="invalid">
+          Password must be at least 8 characters and contain at least one number and symbol
+        </Form.Control.Feedback>
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="formConfirmPassword">
+        <Form.Label>Password</Form.Label>
+        <Form.Control required type="password" placeholder="Confirm Pasword" onChange={ e => setField('name', e.target.value) } isInvalid={ !!errors.name }/>
+        <Form.Control.Feedback type="invalid">
+          Passwords must match
+        </Form.Control.Feedback>
+      </Form.Group>
+
+      <Button variant="primary" type="submit">
+        Sign up
+      </Button>{' '}
+    </Form>
+  );
 }
 
 export default SignupForm;
