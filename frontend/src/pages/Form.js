@@ -1,4 +1,74 @@
-import React, { Component } from 'react';
+import React, { Form } from 'react';
+import { FormGroup } from 'react-bootstrap';
+import { render } from 'react-dom';
+
+function Form() {
+  const [validated, setValidated] = useState(false);
+
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+    event.preventDefault();
+    event.stopPropogation();
+    }
+
+    setValidated(true);
+  };
+  render()
+  {
+    return (
+      <Form noValidate validated={validated} onSubmit={handleSubmit}>
+      <Form.Group classname="mb-3" controlId="formFirstName">
+          <Form.Label>First Name</Form.Label>
+          <Form.Control required type="text" placeholder="Enter First Name" />
+        </Form.Group>
+
+        <Form.Group classname="mb-3" controlId="formLastName">
+          <Form.Label>Last Name</Form.Label>
+          <Form.Control required type="text" placeholder="Enter Last Name" />
+        </Form.Group>
+
+        <Form.Group classname="mb-3" controlId="formUsername">
+          <Form.Label>Username</Form.Label>
+          <Form.Control required type="text" placeholder="Enter Username" />
+        </Form.Group>
+
+        <Form.Group classname="mb-3" controlId="formEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control required type="email" placeholder="Enter email" />
+          <Form.Control.Feedback type="invalid">
+            Please provid a valid email
+          </Form.Control.Feedback>
+        </Form.Group>
+
+        <FormGroup className="mb-3" controlId="formPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control required type="password" placeholder="Pasword" />
+          <Form.Control.Feedback type="invalid">
+            Password must be at least 8 characters and contain at least one number and symbol
+          </Form.Control.Feedback>
+        </FormGroup>
+
+        <FormGroup className="mb-3" controlId="formConfirmPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control required type="password" placeholder="Confirm Pasword" />
+          <Form.Control.Feedback type="invalid">
+            Passwords must match
+          </Form.Control.Feedback>
+        </FormGroup>
+
+        <Button variant="primary" type="submit">
+          Sign up
+        </Button>
+      </Form>
+    );
+  }
+}
+
+export default Form;
+
+
+/*import React, { Component } from 'react';
 import { FormErrors } from './FormErrors';
 import './Form.css';
 
@@ -80,4 +150,4 @@ class Form extends Component {
   }
 }
 
-export default Form;
+export default Form;*/
