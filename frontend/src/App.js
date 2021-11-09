@@ -14,7 +14,7 @@ function App() {
           <CardPage />
         </Route>
         <Redirect to="/" />
-      </Switch>  
+      </Switch>
     </Router>
   );
 }
@@ -23,7 +23,8 @@ export default App;*/
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Form from './Form.js';class App extends Component {
+// import Form from './Form.js';
+class App extends Component {
   render() {
     return (
       <div className="App">
@@ -31,7 +32,6 @@ import Form from './Form.js';class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>React Form Validation Demo</h2>
         </div>
-        <Form />
       </div>
     );
   }
