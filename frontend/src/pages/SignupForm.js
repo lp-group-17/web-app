@@ -1,8 +1,10 @@
 import React, { Form } from 'react';
 import { FormGroup } from 'react-bootstrap';
 import { render } from 'react-dom';
+import { Button } from 'bootstrap';
+import { useState } from 'react';
 
-function Form() {
+function SignupForm() {
   const [validated, setValidated] = useState(false);
 
   const handleSubmit = (event) => {
@@ -14,6 +16,7 @@ function Form() {
 
     setValidated(true);
   };
+  
   render()
   {
     return (
@@ -65,7 +68,7 @@ function Form() {
   }
 }
 
-export default Form;
+export default SignupForm;
 
 
 /*import React, { Component } from 'react';
