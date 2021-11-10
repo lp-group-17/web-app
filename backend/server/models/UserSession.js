@@ -8,7 +8,7 @@ const UserSessionSchema = new mongoose.Schema({
   timestamp: {
     type: Date,
     default: Date.now()
-  };
+  },
   verified: {
   type: Boolean,
   default: true
