@@ -41,8 +41,8 @@ module.exports = (app) => {
 
     email = email.toLowerCase();
 
-    // Ryan: Still not sure how this is supposed to be written
-    User.find(({ email: email }, err, previousUsers) => {
+    // Ryan: I think I fixed it, based on https://mongoosejs.com/docs/api.html#model_Model.find
+    User.find({ email: email }, (err, previousUsers) => {
       if (err) {
         return res.send({
           success: false,
@@ -54,7 +54,7 @@ module.exports = (app) => {
           message: 'Error: email already exists'
         });
       }
-    })
+    });
 
     // create new user
     const newUser = new User();
