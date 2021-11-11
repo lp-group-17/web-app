@@ -2,7 +2,7 @@ const User = require('../../models/User');
 const bcyrpt = require('bcrypt');
 
 module.exports = (app) => {
-  app.post('/api/account/signup', (req, res, next) => {
+  app.post('/api/account/signup', async (req, res, next) => {
     const { body } = req;
     const {
       firstname,
@@ -13,7 +13,7 @@ module.exports = (app) => {
     let {
       email
     } = body;
-    
+
     if (!firstname) {
       return res.send({
         success: false,
@@ -38,12 +38,11 @@ module.exports = (app) => {
         message: 'Error: password field cannot be empty.'
       });
     }
-    
+
     email = email.toLowerCase();
-    
-    User.find({
-      email: email
-    }, (err, previousUsers) => {
+
+    // Ryan: I think I fixed it, based on https://mongoosejs.com/docs/api.html#model_Model.find
+    User.find({ email: email }, (err, previousUsers) => {
       if (err) {
         return res.send({
           success: false,
@@ -55,26 +54,26 @@ module.exports = (app) => {
           message: 'Error: email already exists'
         });
       }
-      
-      // create new user
-      const newUser = new User();
-      
-      newUser.firstname = firstname;
-      newUser.lastname = lastname;
-      newUser.email = email;
-      newUser.password = newUser.generateHash(password);
-      newUser.save((err, user) => {
-        if (err) {
-          return res.send({
+    });
+
+    // create new user
+    const newUser = new User();
+
+    newUser.firstname = firstname;
+    newUser.lastname = lastname;
+    newUser.email = email;
+    newUser.password = newUser.generateHash(password);
+    newUser.save((err, user) => {
+      if (err) {
+        return res.send({
           success: false,
           message: 'Error: Server error'
         });
-       }
-       return res.send({
-         success: true,
-         message: 'Signed up'
-        });
+      }
+      return res.send({
+        success: true,
+        message: 'Signed up'
       });
     });
   });
-};
+}
