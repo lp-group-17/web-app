@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 const SignupForm = () => {
   const [ form, setForm ] = useState({})
   const [ errors, setErrors ] = useState({})
+  const [ message, setMessage ] = useState('');
 
   const setField = (field, value) => {
     setForm({
@@ -45,13 +46,36 @@ const SignupForm = () => {
     return newErrors
   }
 
-  const handleSubmit = e => {
-    e.preventDefault()
+  const handleSubmit = async event => {
+    event.preventDefault()
     const newErrors = findFormErrors()
     if ( Object.keys(newErrors).length > 0 ) {
       setErrors(newErrors)
     } else {
-      alert('you did it')
+      var obj = {firstName:firstName.value, lastName:lastName.value, username:username.value, email:email.value};
+      var js = JSON.stringify(obj);
+      try
+      {
+        const response = await fetch('http://localhost:5000/api/signup', {method:'POST', body:js, header:{'Content-Type':'application/json'}});
+        var res = JSON.parse(await response.text());
+
+        if (res.id <= 0)
+        {
+          setMessage('User/Password combination incorrect');
+        }
+        else
+        {
+          var user = {firstName:res.firstName, lastName:res.lastName, id:res.id}
+          localStorage.setItem('user_data', JSON.stringify(user));
+          setMessage('');
+          window.location.href = '/portal';
+        }
+      }
+      catch(e)
+      {
+        alert(e.toString());
+        return;
+      }
     }
 
   }

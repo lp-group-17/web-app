@@ -43,7 +43,7 @@ module.exports = (app) => {
     
     User.find({
       email: email
-    }, err, previousUsers) => {
+    }, (err, previousUsers) => {
       if (err) {
         return res.send({
           success: false,
@@ -73,6 +73,8 @@ module.exports = (app) => {
        return res.send({
          success: true,
          message: 'Signed up'
+        });
+      });
     });
   });
 };
