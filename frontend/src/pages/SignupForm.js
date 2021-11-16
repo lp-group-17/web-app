@@ -56,7 +56,7 @@ const SignupForm = () => {
       var js = JSON.stringify(obj);
       try
       {
-        const response = await fetch('http://localhost:5000/api/signup', {method:'POST', body:js, header:{'Content-Type':'application/json'}});
+        const response = await fetch('http://localhost:5000/api/signup', {method:'POST', body:js, headers:{'Content-Type':'application/json', 'Accept': 'application/json'}});
         var res = JSON.parse(await response.text());
 
         if (res.id <= 0)
